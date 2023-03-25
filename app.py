@@ -8,7 +8,7 @@ app = Flask(__name__)
 def get_information(name):
     if name == "favicon.ico":
         return "this is "
-    print(name)
+    
     response = create_response(name)
     return response
     # return json.dumps(response)

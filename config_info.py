@@ -85,5 +85,4 @@ def create_response(name):
             str.encode(json.dumps(new_config))))[2:-1]
         return f'<h2> config</h2><textarea style="width:250px;height:300px;">{encoded_config}</textarea><p> حجم باقی مانده </p> <p>{remained_capcity}</p><p>تا تاریخ </p><p>{expiry_time}</p>'
     except Exception as error:
-        print(error)
-        print("an error occured")
+        pass

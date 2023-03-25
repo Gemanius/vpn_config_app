@@ -14,4 +14,4 @@ def get_information(name):
     # return json.dumps(response)
 
 
-app.run(port=5001)
+app.run(port=5000,host="0.0.0.0")

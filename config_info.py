@@ -1,5 +1,4 @@
 import requests
-import jsonify
 from math import floor
 import json
 import base64

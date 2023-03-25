@@ -1,6 +1,5 @@
 from config_info import create_response
 from flask import Flask
-import json
 
 app = Flask(__name__)
 

@@ -15,12 +15,12 @@ iran_server_mapping = [
     },
     {
         "out_url": "https://193.200.16.10:13813/xui/inbound/list",
-        "in_url": "general-pld.darkube.app"
+        "in_url": "https://193.200.16.10"
     }
 ]
 
 sharing_json = {"add": "general-stk.darkube.app", "aid": "0", "alpn": "", "fp": "", "host": "", "id": "fd9482a3-4c24-4bd3-9275-fbbc13a9cef4",
-                "net": "ws", "path": "/amir-eb", "port": "80", "ps": "amir ebrahimi", "scy": "auto", "sni": "", "tls": "", "type": "", "v": "2"}
+                "net": "ws", "path": "/", "port": "80", "ps": "amir ebrahimi", "scy": "auto", "sni": "", "tls": "", "type": "", "v": "2"}
 
 
 def set_cookie(session):
@@ -74,15 +74,21 @@ def create_response(name):
             int(config["expiryTime"]/1000)).strftime('%Y-%m-%d') if config["expiryTime"] != 0 else "unlimited"
         remained_capcity = floor(
             (config["total"]-(config["up"]+config["down"]))/1000000000)
-        new_config = sharing_json
+        new_config = dict(sharing_json)
         new_config["ps"] = config["remark"]
         new_config["id"] = json.loads(config["settings"])["clients"][0]['id']
-        config = json.loads(config["streamSettings"])["wsSettings"]
-        new_config["path"] = config["path"]
-        new_config["add"] = next(
-            (data["in_url"] for data in iran_server_mapping if data["out_url"] == server_urls), None)
+        wsSettings = json.loads(config["streamSettings"])["wsSettings"]
+        if server_urls=="https://46.246.96.86:13713/xui/inbound/list":
+            new_config["add"]="general-stk.darkube.app"
+            new_config["path"] = wsSettings["path"]
+        else:
+            full_url= next(data["out_url"] for data in iran_server_mapping if data["out_url"]==server_urls).split(":")
+            new_config["add"]=full_url[0]+':'+full_url[1]
+            new_config["port"]=config["port"]
+        # new_config["add"] = next(
+        #     (data["in_url"] for data in iran_server_mapping if data["out_url"] == server_urls), None)
         encoded_config = "vmess://"+str(base64.b64encode(
             str.encode(json.dumps(new_config))))[2:-1]
         return f'<h2> config</h2><textarea style="width:250px;height:300px;">{encoded_config}</textarea><p> حجم باقی مانده </p> <p>{remained_capcity}</p><p>تا تاریخ </p><p>{expiry_time}</p>'
     except Exception as error:
-        pass
+        return "hello"

@@ -82,8 +82,7 @@ def create_response(name):
             new_config["add"]="general-stk.darkube.app"
             new_config["path"] = wsSettings["path"]
         else:
-            full_url= next(data["out_url"] for data in iran_server_mapping if data["out_url"]==server_urls).split(":")
-            new_config["add"]=full_url[0]+':'+full_url[1]
+            new_config["add"]=next(data["out_url"] for data in iran_server_mapping if data["out_url"]==server_urls).split(":")[1][2:]
             new_config["port"]=config["port"]
         # new_config["add"] = next(
         #     (data["in_url"] for data in iran_server_mapping if data["out_url"] == server_urls), None)

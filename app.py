@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/<name>", methods=["GET"])
 def get_information(name):
     if name == "favicon.ico":
-        return "this is "
+        return None
     
     response = create_response(name)
     return response

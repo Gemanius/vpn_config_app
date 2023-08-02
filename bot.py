@@ -43,7 +43,7 @@ def run_telegram_bot():
     app = ApplicationBuilder().token("6372238157:AAFesiFi15vJC7EaBveXqImnpBCbVyWxB50").build()
     app.add_handler(CommandHandler("start",start))
     app.add_handler(CommandHandler("config",get_details_by_config))
-    app.add_handler(CommandHandler("config",get_details_by_config))
+    app.add_handler(CommandHandler("name",get_details_by_name))
     app.run_polling()
 
 

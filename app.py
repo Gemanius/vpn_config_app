@@ -25,6 +25,17 @@ def get_information_by_id(id):
 def get_information_by_conf(conf):  
     return config_service.find_config_by_uri(conf).send_config_details()
 
+<<<<<<< HEAD
+=======
+@app.route("/<name>", methods=["GET"])
+def get_information(name):
+    if name == "favicon.ico":
+        return None
+    
+    response = create_response(name)
+    return response
+    # return json.dumps(response)
+>>>>>>> refs/remotes/origin/main
 
 if __name__=="__main__":
     app.run(port=5001,host="0.0.0.0")

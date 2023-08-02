@@ -25,7 +25,7 @@ def running_schedule():
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     print(update.message.text)
-    await update.message.reply_text(f' به قند بات خوش آمدید , با config/ و وارد کردن config خود پس از ان, از مدت زمان حجم و config جدید در صورت تغیرات در سرور مطلع شوید. در صورت هرگونه مشکل با ghand_sup@  در ارتباط باشد ')
+    await update.message.reply_text(f' به قند بات خوش آمدید , با (/config vmess://eyjh...) و وارد کردن config خود پس از ان, از مدت زمان حجم و config جدید در صورت تغیرات در سرور مطلع شوید. در صورت هرگونه مشکل با ghand_sup@  در ارتباط باشد ')
     await update.message.reply_photo(photo=image,)    
     
 async def get_details_by_config(update: Update, context: ContextTypes.DEFAULT_TYPE):

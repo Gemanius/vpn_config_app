@@ -25,6 +25,7 @@ class Configs_service:
         return self.all_configs
             
     def update_configs(self):
+        print("update called")
         for optimizer in self.config_optimizers:
             optimizer.update_configs()
         self.all_configs=[]
@@ -48,7 +49,6 @@ class Configs_service:
     
     def find_config_by_uri(self,config_uri):
         if config_uri.find("vmess://")>-1:
-            print("yees")
             config_uri=config_uri[8:]
         convertbytes = config_uri.encode("ascii")
         convertedbytes = base64.b64decode(convertbytes)
@@ -66,9 +66,11 @@ class Config_formater():
         config=self.config
         byte_to_gig=pow(1024,3)
         used=int((config["up"]+config["down"])/byte_to_gig)
+        result=[]
         remained=int((config["total"] / pow(1024,3)) - used)
-        result= '  مقدار حجم  استفاده شده   ' + "\t"+ str(used)+ "****" + '  مقدار حجم  باقی مانده   ' + "\t" + str(remained) + "****"
-        result= result + datetime.utcfromtimestamp(config["expiryTime"]/1000).strftime('%B %d')  +' تا تاریخ   '
+        result.append( '  مقدار حجم  استفاده شده   ' + str(used))
+        result.append( '  مقدار حجم  باقی مانده   '  + str(remained))
+        result.append( datetime.utcfromtimestamp(config["expiryTime"]/1000).strftime('%B %d')  +' تا تاریخ   ')
         return result
     
     def config_uri(self):
@@ -78,9 +80,10 @@ class Config_formater():
         return encoded_config
     
     def send_config_details(self):
+        result=[]
         uri=self.config_uri()
         usage_details=self.usage_detail()
-        result=f'{uri} *******  {usage_details}'
+        result=[uri,*usage_details]
         return result 
     def generate_share_json(self):
         config_json={

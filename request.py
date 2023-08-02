@@ -13,13 +13,10 @@ class Request():
         }
         self.cookie=cookie
     def post_protected_request(self,url,body=None):
-        print(url)
         if self.cookie==None :
                 raise "should insert cookie"
         response = requests.post(url, cookies=self.cookie,
                 headers=self.headers, verify=False,data=body)
-        print("5555555555555555")
-        print(response)
         return ResponseFormat(response)
 
     def post_request(self,url,body=None):

@@ -37,7 +37,8 @@ async def get_details_by_config(update: Update, context: ContextTypes.DEFAULT_TY
 async def get_details_by_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
     config_remark=update.message.text.replace("/name","").replace(" ","")
     details=config_service.find_config_by_remark(config_remark).send_config_details()
-    await update.message.reply_text(details)
+    for msg in details:
+        await update.message.reply_text(msg)
     
 def run_telegram_bot():
     app = ApplicationBuilder().token("6372238157:AAFesiFi15vJC7EaBveXqImnpBCbVyWxB50").build()

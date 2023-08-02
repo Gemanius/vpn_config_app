@@ -11,4 +11,4 @@ COPY . .
 RUN pip install -r requirements.txt
 
 # set the start command
-RUN python bot.py
+CMD [ "python", "count-bot.py" ]

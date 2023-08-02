@@ -14,7 +14,7 @@ config_service=Configs_service(server_details=server_details)
 image=open("./input_config.jpeg","rb")
 
 
-schedule.every(5).seconds.do(config_service.update_configs)
+schedule.every(15).minutes.do(config_service.update_configs)
 
 def running_schedule():
     while True:

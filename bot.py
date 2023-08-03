@@ -11,7 +11,7 @@ import schedule
 server_details=open("./server_details.json")
 server_details=json.load(server_details)
 config_service=Configs_service(server_details=server_details)
-image=open("./input_config.jpeg","rb")
+
 
 
 schedule.every(15).minutes.do(config_service.update_configs)
@@ -24,7 +24,7 @@ def running_schedule():
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    print(update.message.text)
+    image=open("./input_config.jpeg","rb")
     await update.message.reply_text(f' به قند بات خوش آمدید , با (/config vmess://eyjh...) و وارد کردن config خود پس از ان, از مدت زمان حجم و config جدید در صورت تغیرات در سرور مطلع شوید. در صورت هرگونه مشکل با ghand_sup@  در ارتباط باشد ')
     await update.message.reply_photo(photo=image,)    
     

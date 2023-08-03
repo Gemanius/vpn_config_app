@@ -25,7 +25,7 @@ def running_schedule():
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     image=open("./input_config.jpeg","rb")
-    await update.message.reply_text(f' به قند بات خوش آمدید , با (/config vmess://eyjh...) و وارد کردن config خود پس از ان, از مدت زمان حجم و config جدید در صورت تغیرات در سرور مطلع شوید. در صورت هرگونه مشکل با ghand_sup@  در ارتباط باشد ')
+    await update.message.reply_text(f' به قند بات خوش آمدید , با /config  و وارد کردن config خود پس از ان, از مدت زمان حجم و config جدید در صورت تغیرات در سرور مطلع شوید. در صورت هرگونه مشکل با ghand_sup@  در ارتباط باشد ')
     await update.message.reply_photo(photo=image,)    
     
 async def get_details_by_config(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -39,6 +39,8 @@ async def get_details_by_name(update: Update, context: ContextTypes.DEFAULT_TYPE
     details=config_service.find_config_by_remark(config_remark).send_config_details()
     for msg in details:
         await update.message.reply_text(msg)
+        
+        
     
 def run_telegram_bot():
     app = ApplicationBuilder().token("6372238157:AAFesiFi15vJC7EaBveXqImnpBCbVyWxB50").build()

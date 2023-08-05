@@ -15,7 +15,7 @@ class ServerAuthenticator:
             self.request=Request()
     def get_cookie(self):
         response=self.request.post_request(url=f'{self.url}/login',
-                                  body={"username":self.username,"password":self.password})
+                                  body={"username":self.username,"password":self.password,"LoginSecret":''})
         return response.get_response_cookie()
         
         

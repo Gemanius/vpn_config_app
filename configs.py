@@ -25,7 +25,6 @@ class Configs_service:
         return self.all_configs
             
     def update_configs(self):
-        print("update called")
         for optimizer in self.config_optimizers:
             optimizer.update_configs()
         self.all_configs=[]
@@ -72,6 +71,9 @@ class Config_formater():
         result.append( '  مقدار حجم  باقی مانده   '  + str(remained))
         result.append( datetime.utcfromtimestamp(config["expiryTime"]/1000).strftime('%B %d')  +' تا تاریخ   ')
         return result
+    
+    def config_name(self):
+        return self.config["remark"]
     
     def config_uri(self):
         config_json=self.generate_share_json()

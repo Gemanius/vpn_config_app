@@ -63,7 +63,7 @@ class Config_formater():
         self.config=config
     def usage_detail(self):
         config=self.config
-        byte_to_gig=pow(1024,3)
+        byte_to_gig=pow(1000,3)
         used=int((config["up"]+config["down"])/byte_to_gig)
         result=[]
         remained=int((config["total"] / pow(1024,3)) - used)

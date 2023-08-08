@@ -64,9 +64,9 @@ class Config_formater():
     def usage_detail(self):
         config=self.config
         byte_to_gig=pow(1000,3)
-        used=int((config["up"]+config["down"])/byte_to_gig)
+        used=round((config["up"]+config["down"])/byte_to_gig,2)
         result=[]
-        remained=int((config["total"] / pow(1024,3)) - used)
+        remained=round((config["total"] / pow(1024,3)) - used,2)
         result.append( '  مقدار حجم  استفاده شده   ' + str(used))
         result.append( '  مقدار حجم  باقی مانده   '  + str(remained))
         result.append( datetime.utcfromtimestamp(config["expiryTime"]/1000).strftime('%B %d')  +' تا تاریخ   ')

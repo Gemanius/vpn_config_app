@@ -48,6 +48,13 @@ async def get_details_by_name(update: Update, context: ContextTypes.DEFAULT_TYPE
             await update.message.reply_text(msg)
     else:
         await update.message.reply_text("shoma dastresi be in feature nadarid !!!")
+        
+async def update_configs(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if context._chat_id == 6132337496:        
+        config_service.update_configs()
+        await update.message.reply_text("done!")
+    else:
+        await update.message.reply_text("shoma dastresi be in feature nadarid !!!")
 
 async def config_message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if "vmess://" in update.message.text :
@@ -67,7 +74,8 @@ def run_telegram_bot():
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
     app.add_handler(CommandHandler("start",start))
     app.add_handler(CommandHandler("config",get_details_by_config))
-    app.add_handler(CommandHandler("name",config_message_handler))
+    app.add_handler(CommandHandler("name",get_details_by_name))
+    app.add_handler(CommandHandler("update",update_configs))
     app.add_handler(MessageHandler(filters.TEXT,config_message_handler))
     app.run_polling()
 

@@ -1,7 +1,7 @@
 import schedule
 
 def scheduler(config_service):
-    schedule.every(1).minutes.do(config_service.update_configs)
+    schedule.every(60).minutes.do(config_service.update_configs)
 
     def running_schedule():
         while True:

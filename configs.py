@@ -6,6 +6,7 @@ import base64
 
 class Configs_service:
     def __init__(self,server_details):
+        print("instance created",self)
         self.config_optimizers=[]
         self.initial_configs(server_details=server_details)
         self.all_configs=[]
@@ -25,6 +26,7 @@ class Configs_service:
         return self.all_configs
             
     def update_configs(self):
+        print("it is called to be updated ")
         for optimizer in self.config_optimizers:
             optimizer.update_configs()
         self.all_configs=[]
@@ -47,13 +49,18 @@ class Configs_service:
                 return Config_formater(data)
     
     def find_config_by_uri(self,config_uri):
+        id=""
         if config_uri.find("vmess://")>-1:
             config_uri=config_uri[8:]
-        convertbytes = config_uri.encode("ascii")
-        convertedbytes = base64.b64decode(convertbytes)
-        config_json =convertedbytes.decode("ascii")
-        config_json=json.loads(config_json)
-        return self.find_config_by_id(config_json["id"])
+            convertbytes = config_uri.encode("ascii")
+            convertedbytes = base64.b64decode(convertbytes)
+            config_json =convertedbytes.decode("ascii")
+            config_json=json.loads(config_json)
+            id=config_json["id"]
+        elif config_uri.find("vless://")>-1:
+            id=config_uri[8:config_uri.find("@")]
+            
+        return self.find_config_by_id(id)
         
     
 
@@ -75,18 +82,30 @@ class Config_formater():
     def config_name(self):
         return self.config["remark"]
     
-    def config_uri(self):
+    def vmess_config_uri(self):
         config_json=self.generate_share_json()
         encoded_config = "vmess://"+str(base64.b64encode(
             str.encode(json.dumps(config_json))))[2:-1]
         return encoded_config
     
+    ## not dynamic as vmess 
+    def vless_config_uri(self):
+        config_json=self.generate_share_json()
+        uri=f'vless://{config_json["id"]}@{config_json["add"]}:{config_json["port"]}?security=none&encryption=none&type=ws&path={config_json["path"]}#{config_json["ps"]}'
+        return uri
+        
+    
     def send_config_details(self):
         result=[]
-        uri=self.config_uri()
+        uri=""
+        if self.config["protocol"]== "vmess":
+            uri=self.vmess_config_uri()
+        elif self.config["protocol"]=="vless":
+            uri=self.vless_config_uri()
         usage_details=self.usage_detail()
         result=[uri,*usage_details]
         return result 
+    
     def generate_share_json(self):
         config_json={
             "v": "2",

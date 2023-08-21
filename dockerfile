@@ -11,4 +11,4 @@ COPY . .
 RUN pip install -r requirements.txt
 
 # set the start command
-CMD [ "python", "bot.py" ]
+CMD [ "python", "main.py" ]

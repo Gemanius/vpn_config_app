@@ -73,7 +73,8 @@ class Config_formater():
         byte_to_gig=pow(1000,3)
         used=round((config["up"]+config["down"])/byte_to_gig,2)
         result=[]
-        remained=round((config["total"] / pow(1024,3)) - used,2)
+        remained= round((config["total"] / pow(1024,3)) - used,2) 
+        remained=remained if remained > 0 else 0
         result.append( '  مقدار حجم  استفاده شده   ' + str(used))
         result.append( '  مقدار حجم  باقی مانده   '  + str(remained))
         result.append( datetime.utcfromtimestamp(config["expiryTime"]/1000).strftime('%B %d')  +' تا تاریخ   ')

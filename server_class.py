@@ -10,6 +10,6 @@ class Server():
         
         
     def get_configs(self):
-        url=f'{self.url}/xui/inbounds/'
+        url=f'{self.url}/xui/inbound/list/'
         response = self.request.post_protected_request(url=url).json()["obj"]
         return response

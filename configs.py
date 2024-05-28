@@ -1,4 +1,4 @@
-from config_optimizer import Config_Optimizer
+from config_customizer import Config_customizer
 import json
 from math import pow
 from datetime import datetime
@@ -7,28 +7,28 @@ import base64
 class Configs_service:
     def __init__(self,server_details):
         print("instance created",self)
-        self.config_optimizers=[]
+        self.config_customizers=[]
         self.initial_configs(server_details=server_details)
         self.all_configs=[]
         self.get_all_configs()
             
     def initial_configs(self,server_details):
         for config in server_details["data"]:
-            new_optimizer=Config_Optimizer(username=config["username"],password=config["password"],                       
+            new_customizer=Config_customizer(username=config["username"],password=config["password"],                       
                 server_ip=config["ip"],server_port=config["port"],start_server_port=config["start_server_port"],
                 start_server_url=config["start_server_url"])
-            self.config_optimizers.append(new_optimizer)
+            self.config_customizers.append(new_customizer)
     
     def get_all_configs(self):
-        for optimizer in self.config_optimizers:
-            configs=optimizer.get_configs()
+        for customizer in self.config_customizers:
+            configs=customizer.get_configs()
             self.all_configs=[*self.all_configs,*configs]
         return self.all_configs
             
     def update_configs(self):
         print("it is called to be updated ")
-        for optimizer in self.config_optimizers:
-            optimizer.update_configs()
+        for customizer in self.config_customizers:
+            customizer.update_configs()
         self.all_configs=[]
         self.get_all_configs()
 
